@@ -1,0 +1,54 @@
+﻿<Window x:Class="iwSubjects.WPF.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:iwSubjects.WPF"
+        xmlns:views="clr-namespace:iwSubjects.WPF.Views"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="600" Width="1020">
+
+
+    <Grid Visibility="{Binding Detail}">
+
+        <TabControl>
+            <TabItem Header="Students">
+                <Grid ShowGridLines="True">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Menu>
+                        
+                    </Menu>
+
+                    <Menu Grid.Row="2">
+                       
+                    </Menu>
+
+                    <Menu Grid.Column="1">
+                        
+                    </Menu>
+
+                    
+
+
+                    <views:StudentListView Grid.Row="1" Grid.Column="0" ></views:StudentListView>
+
+                    <views:StudentDetailView Grid.Row="1" Grid.Column="1"></views:StudentDetailView>
+
+                    <views:TaskEvaluationListView Grid.Row="3" Grid.Column="0"></views:TaskEvaluationListView>
+
+                    <views:TaskEvaluationDetailView Grid.Row="3" Grid.Column="1"></views:TaskEvaluationDetailView>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>

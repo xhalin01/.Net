@@ -1,0 +1,98 @@
+﻿<UserControl x:Class="iwSubjects.WPF.Views.StudentListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+             xmlns:viewModels="clr-namespace:iwSubjects.WPF.ViewModel"
+             xmlns:views="clr-namespace:iwSubjects.WPF.Views"
+             mc:Ignorable="d" 
+             DataContext="{Binding StudentListViewModel, Source={StaticResource ViewModelLocator}}"
+             d:DataContext="{d:DesignInstance views:StudentListView, IsDesignTimeCreatable=False}"
+             d:DesignWidth="200"
+             d:DesignHeight="600">
+
+
+    <UserControl.Resources>
+        <Style TargetType="TextBlock" x:Key="StudentListTextBlockStyle">
+            <Setter Property="Padding" Value="6"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+    </UserControl.Resources>
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <ei:CallMethodAction TargetObject="{Binding}" MethodName="OnLoad" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+
+
+    <Grid x:Name="MyContainer">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Label Grid.Row="0" Content="Name"></Label>
+        <TextBox Grid.Row="0"  Grid.Column="1" Text="{Binding SearchName, UpdateSourceTrigger=PropertyChanged}">
+        </TextBox>
+
+
+
+        <Label Grid.Row="1" Content="Surname"></Label>
+        <TextBox  Grid.Row="1"  Grid.Column="1" Text="{Binding SearchSurame, UpdateSourceTrigger=PropertyChanged}">
+        </TextBox>
+
+        <Label Grid.Row="2" Content="Login"></Label>
+        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding SearchLogin, UpdateSourceTrigger=PropertyChanged}">
+        </TextBox>
+
+        <Button Grid.Row="3" Grid.Column="1" Content="Search your input" Command="{Binding ShowFoundCommand}" CommandParameter="{Binding Detail}" />
+
+        <Menu Grid.Row="4" Grid.ColumnSpan="2" Grid.Column="0">
+            <MenuItem Header="Sort by name" Command="{Binding SortByNameCommand}" CommandParameter="{Binding Detail}"/>
+            <MenuItem Header="Sort by surname" Command="{Binding SortBySurnameCommand}" CommandParameter="{Binding Detail}"/>
+            <MenuItem Header="Sort by Points" Command="{Binding SortByPointsCommand}" CommandParameter="{Binding Detail}"/>
+        </Menu>
+
+        <Menu Grid.Row="5" Grid.ColumnSpan="2" Grid.Column="0">
+            <MenuItem Header="A" Command="{Binding ShowOnlyACommand}" CommandParameter="{Binding Detail}"/>
+            <MenuItem Header="B" Command="{Binding ShowOnlyBCommand}" CommandParameter="{Binding Detail}"/>
+            <MenuItem Header="C" Command="{Binding ShowOnlyCCommand}" CommandParameter="{Binding Detail}"/>
+            <MenuItem Header="D" Command="{Binding ShowOnlyDCommand}" CommandParameter="{Binding Detail}"/>
+            <MenuItem Header="E" Command="{Binding ShowOnlyECommand}" CommandParameter="{Binding Detail}"/>
+            <MenuItem Header="F" Command="{Binding ShowOnlyFCommand}" CommandParameter="{Binding Detail}"/>
+            <MenuItem Header="ALL" Command="{Binding GetAllStudentsCommand}" CommandParameter="{Binding Detail}"/>
+        </Menu>
+
+        <ListBox x:Name="RootListBox" ItemsSource="{Binding Students}" Grid.Row="6" Grid.ColumnSpan="2">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged" >
+                    <i:InvokeCommandAction Command="{Binding ElementName=RootListBox, Path=DataContext.SelectStudentCommand}" 
+                                           CommandParameter="{Binding ElementName=RootListBox, Path=SelectedItem}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal" Margin="8">
+                        <TextBlock Text="{Binding Name}" Style="{StaticResource StudentListTextBlockStyle}"/>
+                        <TextBlock Text="{Binding Surname}" Style="{StaticResource StudentListTextBlockStyle}">
+                        </TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ListBox>
+
+    </Grid>
+</UserControl>

@@ -1,0 +1,51 @@
+﻿<UserControl x:Class="iwSubjects.WPF.Views.TaskEvaluationDetailView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:iwSubjects.WPF.Views"
+             xmlns:System="clr-namespace:System;assembly=mscorlib"
+             xmlns:iwSubjects="clr-namespace:iwSubjects;assembly=iwSubjects"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300"
+             DataContext="{Binding TaskEvaluationDetailViewModel, Source={StaticResource ViewModelLocator}}">
+    <UserControl.Resources>
+        <ObjectDataProvider x:Key="dataFromEnum" MethodName="GetValues"
+                            ObjectType="{x:Type System:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="iwSubjects:TaskEvaluationType"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Label Grid.Row="1" Grid.Column="0" Content="Type:"></Label>
+        <ComboBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Source={StaticResource dataFromEnum}}"  SelectedItem="{Binding Detail.Type, UpdateSourceTrigger=PropertyChanged}"></ComboBox>
+        
+        <Label Grid.Row="2" Grid.Column="0" Content="Lector:"></Label>
+        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Detail.Lector, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+
+        <Label Grid.Row="3" Grid.Column="0" Content="Points:"></Label>
+        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Detail.Points, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+
+        <Label Grid.Row="4" Grid.Column="0" Content="Note:"></Label>
+        <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Detail.Note, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+
+        <Menu Grid.Row="0" Grid.ColumnSpan="2">
+            <MenuItem Header="Delete" Command="{Binding DeleteCommand}" CommandParameter="{Binding Detail}"/>
+            <MenuItem Header="Save" Command="{Binding SaveCommand}" CommandParameter="{Binding Detail}"/>
+            <MenuItem Header="Add" Command="{Binding CreateTaskCommand}"/>
+        </Menu>
+    </Grid>
+</UserControl>

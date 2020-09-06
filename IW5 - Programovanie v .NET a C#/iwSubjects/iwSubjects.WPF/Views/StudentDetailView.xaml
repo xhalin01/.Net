@@ -1,0 +1,52 @@
+﻿<UserControl x:Class="iwSubjects.WPF.Views.StudentDetailView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:iwSubjects.WPF.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300"
+             DataContext="{Binding StudentDetailViewModel, Source={StaticResource ViewModelLocator}}"
+             x:Name="Root">
+    <Grid Visibility="{Binding Detail}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        
+        
+        
+        
+        <Label Grid.Row="1" Grid.Column="0" Content="Name:"></Label>
+        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Detail.Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+
+        <Label Grid.Row="2" Grid.Column="0" Content="Surname:"></Label>
+        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Detail.Surname, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+
+        <Label Grid.Row="3" Grid.Column="0" Content="Login"></Label>
+        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Detail.Login, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+
+        <Label Grid.Row="4" Grid.Column="0" Content="Photo link:"></Label>
+        <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Detail.PhotoLink, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        
+
+        <Label Grid.Row="5" Grid.Column="0" Content="Photo:"></Label>
+        <Image Grid.Row="5" Grid.Column="1" Source="{Binding Detail.PhotoLink, UpdateSourceTrigger=PropertyChanged}" />
+
+
+        <Menu Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="0">
+            <MenuItem Header="Delete" Command="{Binding DeleteCommand}" CommandParameter="{Binding Detail}"/>
+            <MenuItem Header="Save" Command="{Binding SaveCommand}" CommandParameter="{Binding Detail}"/>
+            <MenuItem Header="Add" Command="{Binding CreateStudentCommand}"/>
+        </Menu>
+
+    </Grid>
+</UserControl>
